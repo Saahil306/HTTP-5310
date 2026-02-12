@@ -10,8 +10,8 @@
 <header>
   <h1>Captain's Boil</h1>
   <nav>
-    <a href="#">Home</a> |
-    <a href="#">Menu</a> |
+    <a href="<?php echo home_url(); ?>">Home</a> |
+    <a href="<?php echo home_url('/menu'); ?>">Menu</a> |
     <a href="#">Reservations</a> |
     <a href="#">Contact</a>
   </nav>
