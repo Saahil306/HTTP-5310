@@ -12,7 +12,7 @@
   <nav>
     <a href="<?php echo home_url(); ?>">Home</a> |
     <a href="<?php echo home_url('/menu'); ?>">Menu</a> |
-    <a href="#">Reservations</a> |
+    <a href="<?php echo home_url('/reservations'); ?>">Reservations</a> |
     <a href="#">Contact</a>
   </nav>
 </header>
