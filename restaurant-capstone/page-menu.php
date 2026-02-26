@@ -1,49 +1,80 @@
-<?php get_header(); ?>
+<?php
+/* Template Name: Menu Page */
+get_header();
+?>
 
-<main>
-  <h2>Our Menu</h2>
+<section class="menu-hero">
+  <div class="container">
+    <h1>Our Menu</h1>
+    <p>Explore our delicious seafood selection</p>
+  </div>
+</section>
 
-  <?php
-  $categories = get_terms(array(
+<section class="menu-section">
+  <div class="container">
+
+<?php
+$cats = get_terms([
+  'taxonomy' => 'menu_category',
+  'hide_empty' => true
+]);
+
+foreach ($cats as $cat):
+?>
+
+  <div class="menu-category-block">
+
+    <div class="menu-category-header">
+      <h2><?php echo esc_html($cat->name); ?></h2>
+      <div class="menu-line"></div>
+    </div>
+
+    <div class="menu-grid">
+
+<?php
+$items = new WP_Query([
+  'post_type' => 'menu_item',
+  'posts_per_page' => -1,
+  'tax_query' => [[
     'taxonomy' => 'menu_category',
-    'hide_empty' => false,
-  ));
+    'field' => 'term_id',
+    'terms' => $cat->term_id
+  ]]
+]);
 
-  foreach ($categories as $category) :
-  ?>
-    <h3 style="margin-top:30px;"><?php echo $category->name; ?></h3>
+while ($items->have_posts()): $items->the_post();
 
-    <?php
-    $args = array(
-      'post_type' => 'menu_item',
-      'posts_per_page' => -1,
-      'tax_query' => array(
-        array(
-          'taxonomy' => 'menu_category',
-          'field' => 'slug',
-          'terms' => $category->slug,
-        ),
-      ),
-    );
+$price = get_post_meta(get_the_ID(), '_cb_price', true);
+$spice = get_post_meta(get_the_ID(), '_cb_spice', true);
+?>
 
-    $menu_query = new WP_Query($args);
+  <div class="menu-card">
+    <div class="menu-card-inner">
 
-    if ($menu_query->have_posts()) :
-      while ($menu_query->have_posts()) : $menu_query->the_post();
-    ?>
-        <div style="background:#fff; padding:20px; margin:15px 0; border:1px solid #ddd;">
-          <h4><?php the_title(); ?></h4>
-          <p><?php the_content(); ?></p>
-        </div>
-    <?php
-      endwhile;
-      wp_reset_postdata();
-    else :
-      echo "<p>No items in this category.</p>";
-    endif;
-    ?>
+      <div class="menu-top">
+        <h3><?php the_title(); ?></h3>
+        <span class="price">$<?php echo esc_html($price); ?></span>
+      </div>
 
-  <?php endforeach; ?>
-</main>
+      <p class="menu-desc"><?php echo get_the_excerpt(); ?></p>
+
+      <?php if ($spice): ?>
+        <span class="spice-badge spice-<?php echo esc_attr(strtolower($spice)); ?>">
+          🌶 <?php echo esc_html($spice); ?>
+        </span>
+      <?php endif; ?>
+
+    </div>
+  </div>
+
+<?php endwhile; wp_reset_postdata(); ?>
+
+    </div>
+  </div>
+
+<?php endforeach; ?>
+
+  </div>
+</section>
 
 <?php get_footer(); ?>
