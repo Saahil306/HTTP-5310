@@ -1,22 +1,18 @@
 <?php
-/*
-Template Name: Login Page
-*/
+/* Template Name: Login Page */
 get_header();
 ?>
 
-<main class="login-page">
+<section class="section">
   <h2>Login</h2>
 
-  <form method="post" action="<?php echo wp_login_url(); ?>">
-    <label>Username</label>
-    <input type="text" name="log" required>
+  <form id="loginForm">
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
 
-    <label>Password</label>
-    <input type="password" name="pwd" required>
-
-    <button type="submit">Login</button>
+    <button type="submit" class="btn-primary">Login</button>
+    <p id="loginMsg"></p>
   </form>
-</main>
+</section>
 
 <?php get_footer(); ?>

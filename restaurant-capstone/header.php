@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes(); ?>>
 <head>
-  <meta charset="UTF-8">
-  <title><?php bloginfo('name'); ?></title>
-  <?php wp_head(); ?>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Captain's Boil</title>
+<?php wp_head(); ?>
 </head>
-<body>
 
-<header>
-  <h1>Captain's Boil</h1>
-  <nav>
-    <a href="<?php echo home_url(); ?>">Home</a> |
-    <a href="<?php echo home_url('/menu'); ?>">Menu</a> |
-    <a href="<?php echo home_url('/reservations'); ?>">Reservations</a> |
-    <a href="#">Contact</a>
-  </nav>
-</header>
+<body <?php body_class(); ?>>
+
+<nav class="navbar">
+  <div class="logo">⚓ Captain’s Boil</div>
+
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/menu">Menu</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  </div>
+</nav>
